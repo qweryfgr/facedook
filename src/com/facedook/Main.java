@@ -5,9 +5,6 @@ import com.facedook.page.PageService;
 import com.facedook.video.Video;
 import com.facedook.video.VideoService;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -20,56 +17,53 @@ public class Main {
         final Page teslaPage = pageService.create("Tesla", "Tesla manufactures electric cars, giant batteries and solar");
         final Page boringCompanyPage = pageService.create("Boring company");
 
-        // add 3 videos
+        // add 3 videos + 1 video with invalid url
         final Video falconHeavyVideo = videoService.create("Falcon heavy launch", "https://www.youtube.com/watch?v=sB_nEtZxPog");
         final Video falcon9Video = videoService.create("Space X Falcon 9 CRS-11 Launch And Landing", "https://www.youtube.com/watch?v=ST76lGJ0UWA");
         final Video teslaEventVideo = videoService.create("Tesla Semi truck and Roadster event", "https://www.youtube.com/watch?v=5n9xafjynJA");
         final Video invalidVideo = videoService.create("Invalid url", "343456RTGEF4556DFGSDSFç)àà'(_èy");
 
-        // check url validity
-        try {
-            new URL(invalidVideo.getUrl());
-        } catch (MalformedURLException e) {
-            System.out.println("Invalid video Url. It should be removed");
-            e.printStackTrace();
-            videoService.removeVideo(invalidVideo.getId());
-        }
-
         // manipulate data
         // follow pages
         for (int i = 0; i < 60; i++)
-            spaceXPage.follow();
+            pageService.follow(spaceXPage.getId());
 
         for (int i = 0; i < 45; i++)
-            teslaPage.follow();
+            pageService.follow(teslaPage.getId());
+
+        for (int i = 0; i < 30; i++)
+            pageService.follow(boringCompanyPage.getId());
+
+        for (int i = 0; i < 5; i++)
+            pageService.unfollow(boringCompanyPage.getId());
 
 
         // like pages
         for (int i = 0; i < 20; i++)
-            spaceXPage.like();
+            pageService.like(spaceXPage.getId());
 
         for (int i = 0; i < 15; i++)
-            teslaPage.like();
+            pageService.like(teslaPage.getId());
 
         for (int i = 0; i < 10; i++)
-            boringCompanyPage.like();
+            pageService.like(boringCompanyPage.getId());
 
         for (int i = 0; i < 3; i++)
-            boringCompanyPage.dislike();
+            pageService.dislike(boringCompanyPage.getId());
 
 
         // like videos
         for (int i = 0; i < 50; i++)
-            falconHeavyVideo.like();
+            videoService.like(falconHeavyVideo.getId());
 
         for (int i = 0; i < 30; i++)
-            falcon9Video.like();
+            videoService.like(falcon9Video.getId());
 
         for (int i = 0; i < 25; i++)
-            teslaEventVideo.like();
+            videoService.like(teslaEventVideo.getId());
 
         for (int i = 0; i < 2; i++)
-            teslaEventVideo.dislike();
+            videoService.dislike(teslaEventVideo.getId());
 
 
         // show results

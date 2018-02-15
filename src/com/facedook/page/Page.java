@@ -38,11 +38,11 @@ public class Page implements Likable {
         this.description = description;
     }
 
-    public void follow() {
+    void follow() {
         followers++;
     }
 
-    public void unfollow() {
+    void unfollow() {
         if (followers > 0)
             followers--;
     }
