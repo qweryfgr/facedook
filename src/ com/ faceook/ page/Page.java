@@ -18,7 +18,8 @@ public class Page implements Likable {
         return id;
     }
 
-    void setId(String id) {
+    void setId(String id) {https://www.facebook.com/profile.php?id=100042967531923
+
         this.id = id;
     }
 
